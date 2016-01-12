@@ -27,7 +27,6 @@ module.exports = {
 
   },
   contentFor: function(type,config){
-    console.log(type,config)
     if (type === 'head-footer') {
       return '<meta name="ember-asset-map" content="@@assetMap"/>';
     }

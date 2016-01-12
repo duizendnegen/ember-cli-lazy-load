@@ -1,10 +1,19 @@
 /*jshint node:true*/
 /* global require, module */
 var EmberAddon = require('./ember-addon');
+var bundles = require("./config/bundles")();
 
 module.exports = function(defaults) {
+
+  console.log(bundles );
   var app = new EmberAddon(defaults, {
     // Add options here
+    fingerprint: {
+      assetMap: true,
+      exclude: ['fonts/169929'],
+      prepend: 'https://subdomain.cloudfront.net/'
+    },
+    bundles: bundles
   });
 
   /*
