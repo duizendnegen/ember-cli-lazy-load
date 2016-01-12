@@ -3,11 +3,13 @@
 
 var Funnel      = require('broccoli-funnel');
 var treeJson    = require("broccoli-tree-to-json");
-var MergeTrees       = require("broccoli-merge-trees")
+var MergeTrees  = require("broccoli-merge-trees")
+var replace  = require("broccoli-replace")
 module.exports = {
   name: 'ember-cli-bundle',
 
   included: function(app, parentAddon) {
+    this._super.included(app);
     var target = (parentAddon || app);
 
     // Now you can modify the app / parentAddon. For example, if you wanted
@@ -27,12 +29,21 @@ module.exports = {
   contentFor: function(type,config){
     console.log(type,config)
     if (type === 'head-footer') {
-      return '<meta name="ember-asset-map" content="@assetMap"/>';
+      return '<meta name="ember-asset-map" content="@@assetMap"/>';
     }
   },
   postprocessTree:function(type,tree){
-    var workingTree = tree;
+    if(type != "all"){
+      return tree;
+    }
 
+    var assets  = []
+    var workingTree = new Funnel(tree, {
+      getDestinationPath: function(relativePath) {
+        assets.push(relativePath)
+        return relativePath;
+      }
+    });
 
     var indexTree = replace(workingTree, {
       files: [
@@ -41,19 +52,16 @@ module.exports = {
       patterns: [
         {
           match: 'assetMap',
-          replacement: 'bar'
+          replacement: function(){
+            return JSON.stringify(assets).replace('"', "'")
+          }
         }
       ]
     });
 
-    var mergedTree = new MergeTrees([workingTree,indexTree], {
+    return new MergeTrees([workingTree,indexTree], {
       overwrite: true
     });
-    return new Funnel(mergedTree, {
-      getDestinationPath: function(relativePath) {
-        console.log(type,relativePath);
-        return relativePath;
-      }
-    });;
+
   }
 };

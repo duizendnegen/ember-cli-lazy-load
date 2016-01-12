@@ -34,4 +34,6 @@ node_modules
 .idea
 dist
 bower_components
+/dist
+/tmp
 .DS_Store
