@@ -21,6 +21,7 @@ module.exports = EmberAddon;
 function EmberAddon() {
     var args = [];
     var options = {};
+    console.log("Addon init")
 
     for (var i = 0, l = arguments.length; i < l; i++) {
         args.push(arguments[i]);

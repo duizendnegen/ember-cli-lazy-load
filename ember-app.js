@@ -33,6 +33,7 @@ var mergeTrees  = function(inputTree, options) {
  */
 var EmberAppBundle = function(){
 
+    console.log("App init")
     EmberApp.apply(this,arguments);
 
     var options;
@@ -49,9 +50,13 @@ var EmberAppBundle = function(){
 
 };
 
+EmberAppBundle.prototype = Object.create(EmberApp.prototype);
+EmberAppBundle.prototype.constructor = EmberAppBundle;
+
 
 EmberAppBundle.prototype.javascript = function(){
 
+    console.log("Right call")
     var applicationJs       = this.appAndDependencies();
     var legacyFilesToAppend = this.legacyFilesToAppend;
     var appOutputPath       = this.options.outputPaths.app.js;
@@ -160,8 +165,6 @@ EmberAppBundle.prototype.javascript = function(){
     });
 }
 
-EmberAppBundle.prototype = Object.create(EmberApp.prototype);
-EmberAppBundle.prototype.constructor = EmberAppBundle;
 
 
 
