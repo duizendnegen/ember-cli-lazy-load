@@ -6,11 +6,11 @@ import {
 } from 'ember-mocha';
 
 describeModule(
-  'service:bundles',
+  'service:bundle-loader',
   'BundlesService',
   {
     // Specify the other units that are required for this test.
-     needs: ['service:bundles']
+     needs: ['service:bundle-loader']
   },
   function() {
     // Replace this with your real tests.
