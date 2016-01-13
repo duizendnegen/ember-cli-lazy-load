@@ -33,7 +33,6 @@ var mergeTrees  = function(inputTree, options) {
  */
 var EmberAppBundle = function(){
 
-    console.log("App init")
     EmberApp.apply(this,arguments);
 
     var options;
@@ -56,7 +55,7 @@ EmberAppBundle.prototype.constructor = EmberAppBundle;
 
 EmberAppBundle.prototype.javascript = function(){
 
-    console.log("Right call")
+
     var applicationJs       = this.appAndDependencies();
     var legacyFilesToAppend = this.legacyFilesToAppend;
     var appOutputPath       = this.options.outputPaths.app.js;
@@ -133,7 +132,7 @@ EmberAppBundle.prototype.javascript = function(){
 
         return this.concatFiles(bundleTree.tree, {
             inputFiles: [this.name + '/**/*.js'],
-            outputFile: appOutputPath.replace(".js", "-"+bundleTree.config.name.toLowerCase() + ".js") ,
+            outputFile: appOutputPath.replace(".js", "."+bundleTree.config.name.toLowerCase() + ".bundle.js") ,
             annotation: 'Concat: App-Index'
         });
     },this);
