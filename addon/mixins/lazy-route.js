@@ -7,13 +7,6 @@ export default Ember.Mixin.create({
 
     bundles: Ember.inject.service(),
 
-    /*
-    init(){
-        let service = this.get("bundles")
-        console.log(this.bundles.loadBundle());
-        this._super();
-    },*/
-
     beforeModel: function(transition, queryParams){
         this._super(transition,queryParams);
         let service = this.get("bundle-loader");
