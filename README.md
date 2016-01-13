@@ -1,12 +1,15 @@
-# Bundle
+# Ember-ClI-Lazy-Load
 
-This README outlines the details of collaborating on this Ember addon.
+This README outlines the details of collaborating on the Ember-CLI-Lazy-Load addon.
 
 ## Installation
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+* `ember install ember-cli-lazy-load` 
+
+## Getting started 
+
+Todo 
+
 
 ## Running
 
