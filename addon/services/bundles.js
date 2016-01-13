@@ -1,4 +1,5 @@
 import  Ember from "ember"
+import config from 'ember-get-config';
 
 export default Ember.Service.extend({
 
@@ -7,25 +8,37 @@ export default Ember.Service.extend({
      */
     _promises: {},
 
-    /**
-     * asset map
-     */
-    _config: false,
 
     /**
      * Init function
      */
     init: function(){
-        if(document){
-            let jsonStr = Ember.$(document.getElementsByName("ember-asset-map")).attr("content").replace(/'/g,'"');
-            this._bundleUrlMap = JSON.parse(jsonStr);
-        }
-        var applicationConfig = this.container.lookup('config:environment');
-        console.log(applicationConfig.modulePrefix)
+        this._modifyConfig()
+
+        console.log(config);
         this._super();
     },
 
+    _modifyConfig(){
+        if(!!config.bundles == false && config.enviroment=="development"){
+            console.warn("please specify a bundles option in your enviroment config")
+            return;
+        }
 
+        let jsonStr = Ember.$(document.getElementsByName("ember-asset-map")).attr("content").replace(/'/g,'"');
+        let jsonObj = JSON.parse(jsonStr);
+        let bundleMapKey   = Object.keys(jsonObj);
+
+        Object.keys(config.bundles).forEach((key)=>{
+
+            if(bundleMapKey.indexOf(key) > -1){
+                config.bundles[key].url = jsonObj[key]
+            }else {
+                return '/assets/' + config.modulePrefix + "." + key + '.bundle.js';
+            }
+        })
+
+    },
     /**
      *
      * Instand of Ember.$.getScript because the getScript function is async see: http://stackoverflow.com/questions/1130921/is-the-callback-on-jquerys-getscript-unreliable-or-am-i-doing-something-wrong
@@ -64,19 +77,19 @@ export default Ember.Service.extend({
      */
     requireBundle: function (name) {
 
-        if (typeof  this._bundlePromises[name] === "undefined") {
+        if (typeof  this._promises[name] === "undefined") {
 
-            this._bundlePromises[name] = this.getScript(this.getUrlByName(name));
+            this._promises[name] = this.getScript(config.bundles[name].url);
 
         } else {
-            return this._bundlePromises[name];
+            return this._promises[name];
         }
     },
     loadBundle:function(routeName){
         //Find bundle for route
-        var rightBundleForRoute  = Object.keys(this.config)
+        var rightBundleForRoute  = Object.keys(config.bundles)
             .find((name)=> {
-                let bundle = this.config[name];
+                let bundle = config.bundles[name];
                 return bundle.routes.indexOf(routeName)>-1;
             });
 
@@ -89,9 +102,9 @@ export default Ember.Service.extend({
 
 
         //Load all dependencies bundles and the actual bundle
-        dependencies.push(rightBundleForRoute.name);
+        dependencies.push(rightBundleForRoute);
 
-        var requests = dependencies.map((depName)=>Router._loadBundle(depName));
+        var requests = dependencies.map((depName)=>this.requireBundle(depName));
 
         return Ember.$.when(requests);
     }
