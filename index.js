@@ -6,7 +6,7 @@ var treeJson    = require("broccoli-tree-to-json");
 var MergeTrees  = require("broccoli-merge-trees")
 var replace  = require("broccoli-replace")
 module.exports = {
-  name: 'ember-cli-bundle',
+  name: 'ember-cli-lazy-load',
 
   included: function(app, parentAddon) {
     this._super.included(app,parentAddon);
