@@ -15,7 +15,7 @@ export default Ember.Mixin.create({
     },*/
 
     beforeModel: function(transition, queryParams){
-        console.log("lazy-route:beforeModel");
+        this._super(transition);
         let service = this.get("bundles");
         return service.loadBundle(transition.targetName);
     }
