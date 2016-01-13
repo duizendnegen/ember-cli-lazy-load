@@ -10,15 +10,4 @@ Router.map(function() {
   this.route('index',{ path: '/' });
 
 });
-/**
- * Excecuted by each route that extends the bundleLoadRouter
- * @param transition
- * @returns {Promise}
- */
-Router.beforeModel= function(transition){
-
-
-
-
-};
 export default Router;
