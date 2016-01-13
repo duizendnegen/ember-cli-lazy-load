@@ -1,6 +1,5 @@
-import Ember from "ember"
-import App from "./../app"
-import LazyRouteMixin from 'ember-cli-bundle/mixins/lazy-route';
+import Ember from "ember" ;
+import LazyRouteMixin from 'ember-cli-lazy-load/mixins/lazy-route';
 
 export default Ember.Route.extend(LazyRouteMixin,{
 
