@@ -9,7 +9,7 @@ module.exports = {
   name: 'ember-cli-bundle',
 
   included: function(app, parentAddon) {
-    this._super.included(app);
+    this._super.included(app,parentAddon);
     var target = (parentAddon || app);
 
     // Now you can modify the app / parentAddon. For example, if you wanted
@@ -36,10 +36,13 @@ module.exports = {
       return tree;
     }
 
-    var assets  = []
+    var assets  = {}
     var workingTree = new Funnel(tree, {
       getDestinationPath: function(relativePath) {
-        assets.push(relativePath)
+        var list = relativePath.split(".")
+        var indexOfBundleStr = list.indexOf("bundle");
+        if( indexOfBundleStr  > -1  && list[indexOfBundleStr+1] != "map" )
+        assets[list[indexOfBundleStr-1]] = relativePath;
         return relativePath;
       }
     });
@@ -52,7 +55,7 @@ module.exports = {
         {
           match: 'assetMap',
           replacement: function(){
-            return JSON.stringify(assets).replace('"', "'")
+            return JSON.stringify(assets).replace(/"/g, "'")
           }
         }
       ]
