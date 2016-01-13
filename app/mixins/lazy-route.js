@@ -1,3 +1,3 @@
-import LazyRouteMixin from "ember-cli-bundle/mixins/lazy-route";
+import LazyRouteMixin from "ember-cli-lazy-load/mixins/lazy-route";
 
 export default LazyRouteMixin
