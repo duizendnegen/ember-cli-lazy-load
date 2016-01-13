@@ -15,7 +15,7 @@ export default Ember.Mixin.create({
     },*/
 
     beforeModel: function(transition, queryParams){
-        this._super(transition);
+        this._super(transition,queryParams);
         let service = this.get("bundles");
         return service.loadBundle(transition.targetName);
     }

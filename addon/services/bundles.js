@@ -1,4 +1,4 @@
-import  Ember from "ember"
+import  Ember from "ember";
 import config from 'ember-get-config';
 
 export default Ember.Service.extend({
@@ -13,15 +13,13 @@ export default Ember.Service.extend({
      * Init function
      */
     init: function(){
-        this._modifyConfig()
-
-        console.log(config);
+        this._modifyConfig();
         this._super();
     },
 
     _modifyConfig(){
-        if(!!config.bundles == false && config.enviroment=="development"){
-            console.warn("please specify a bundles option in your enviroment config")
+        if(typeof config.bundles === "undefined" && config.enviroment==="development"){
+            console.warn("please specify a bundles option in your enviroment config");
             return;
         }
 
@@ -32,11 +30,11 @@ export default Ember.Service.extend({
         Object.keys(config.bundles).forEach((key)=>{
 
             if(bundleMapKey.indexOf(key) > -1){
-                config.bundles[key].url = jsonObj[key]
+                config.bundles[key].url = jsonObj[key];
             }else {
                 return '/assets/' + config.modulePrefix + "." + key + '.bundle.js';
             }
-        })
+        });
 
     },
     /**
@@ -61,7 +59,7 @@ export default Ember.Service.extend({
      */
     getUrlByName: function (name) {
 
-        if(typeof this._bundleUrlMap[name] != "undefined") {
+        if(typeof this._bundleUrlMap[name] !== "undefined") {
             return this._bundleUrlMap[name];
         }
         else {
