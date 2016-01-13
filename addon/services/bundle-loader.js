@@ -53,21 +53,6 @@ export default Ember.Service.extend({
     },
 
     /**
-     * Get the url for a given bundle name
-     * @param name - the name of the bundle
-     * @returns {*}
-     */
-    getUrlByName: function (name) {
-
-        if(typeof this._bundleUrlMap[name] !== "undefined") {
-            return this._bundleUrlMap[name];
-        }
-        else {
-            return '/assets/' + config.modulePrefix + "." + name.toLowerCase() + '.bundle.js';
-        }
-
-    },
-    /**
      * Load a bundle or return the promise of the bundle if already loaded / loading
      * @param name
      * @returns {*}
