@@ -17,21 +17,24 @@ This README outlines the details of collaborating on the Ember-CLI-Lazy-Load add
 ```javascript 
 
         index: {
+            //Minisearch file patterns for the content of the bundle 
             files: [
                 "**/templates/index.js",
                 "**/controllers/index.js",
-                "**/components/my-item/**.js"
+                "**/components/my-cat/**.js"
             ],
         
+            //The name of the routes if you are using the lazy-route mixin, no minisearch expressions are allowed here. 
             routes: ["index", "..."]
+            //The dependencies for this bundle. They will loaded in the same batch as the actual bundle 
+            dependencies: ["about"],
         },
         about: {
             files: [
                 "**/templates/about.js",
                 "**/controllers/about.js",
-                "**/components/my-cat/**.js"
+                "**/components/my-item/**.js"
             ],
-            dependencies: ["index"],
             routes: ["about", "more routes for this bundle "]
         }
 ```
