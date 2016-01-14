@@ -18,6 +18,14 @@ describe('LazyRouteMixin', function() {
 
   });
 
+  it('has findBundleNameByRoute func', function() {
+    let LazyRouteObject = Ember.Object.extend(LazyRouteMixin);
+    let subject = LazyRouteObject.create();
+
+    expect(subject).to.respondTo("findBundleNameByRoute");
+
+  });
+
   it('has bundle prop', function() {
     let LazyRouteObject = Ember.Object.extend(LazyRouteMixin);
     let subject = LazyRouteObject.create();

@@ -69,23 +69,17 @@ export default Ember.Service.extend({
             return this._promises[name];
         }
     },
-    loadBundle:function(routeName){
-        //Find bundle for route
-        var foundBundleName  = Object.keys(config.bundles)
-            .find((name)=> {
-                let bundle = config.bundles[name];
-                return bundle.routes.indexOf(routeName)>-1;
-            });
+    loadBundle:function(bundleName){
 
-        if( typeof foundBundleName === "undefined"){
+        if( typeof bundleName === "undefined"){
             return new Promise((resolve)=>resolve());
         }
 
         //find dependencies
-        var dependencies = typeof config.bundles[foundBundleName].dependencies !== "undefined" ? config.bundles[foundBundleName].dependencies: [];
+        var dependencies = typeof config.bundles[bundleName].dependencies !== "undefined" ? config.bundles[bundleName].dependencies: [];
 
         //Load all dependencies bundles and the actual bundle
-        dependencies.push(foundBundleName);
+        dependencies.push(bundleName);
 
         var requests = dependencies.map((depName)=>this.requireBundle(depName));
 
