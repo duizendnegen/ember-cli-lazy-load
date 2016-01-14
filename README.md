@@ -4,7 +4,9 @@ This README outlines the details of collaborating on the Ember-CLI-Lazy-Load add
 
 ## Installation
 
-* `ember install ember-cli-lazy-load` 
+* `ember install ember-cli-lazy-load`  for ember-cli@2.2.0-beta.6
+* `ember install ember-cli-lazy-load@0.0.6`  for ember-cli@1.*
+
 
 ## Getting started 
 
