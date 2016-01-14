@@ -56,6 +56,7 @@ EmberAppBundle.prototype.constructor = EmberAppBundle;
 EmberAppBundle.prototype.javascript = function(){
 
 
+
     var applicationJs       = this.appAndDependencies();
     var legacyFilesToAppend = this.legacyFilesToAppend;
     var appOutputPath       = this.options.outputPaths.app.js;
@@ -72,56 +73,11 @@ EmberAppBundle.prototype.javascript = function(){
         );
     }
 
-    var AllAppJs = mergeTrees([
-        appJs,
-        this._processedEmberCLITree()
-    ], {
-        annotation: 'TreeMerger (appJS  & processedEmberCLITree)',
-        overwrite: true
-    });
-
-
-
-
-    /**
-     * Exclude the bundle files from the main file
-     * #
-     */
-    var excludedFiles  = Object.keys(this.bundleCofig).map(function(key){
-        return this.bundleCofig[key].files;
-    },this);
-
-    //Flattern array
-    excludedFiles = [].concat.apply([],excludedFiles);
-
-
-    appJs = new Funnel(AllAppJs, {
-        exclude: excludedFiles,
-        getDestinationPath: function(relativePath) {
-            return relativePath;
-        }
-
-    });
-
-    //Create the main file
-    var inputFiles = ['vendor/ember-cli/vendor-prefix.js']
-        .concat(legacyFilesToAppend)
-        .concat('vendor/addons.js')
-        .concat('vendor/ember-cli/vendor-suffix.js');
-
-    var vendor = this.concatFiles(applicationJs, {
-        inputFiles: inputFiles,
-        outputFile: this.options.outputPaths.vendor.js,
-        separator: EOL + ';',
-        annotation: 'Concat: Vendor'
-    });
-
-
     var bundleFiles = Object.keys(this.bundleCofig).map(function(key){
         var bundle = this.bundleCofig[key];
         bundle["name"] = key;
 
-        var bundleJS = new Funnel(AllAppJs, {
+        var bundleJS = new Funnel(applicationJs, {
             include: bundle.files,
             getDestinationPath: function(relativePath) {
                 return relativePath;
@@ -137,7 +93,36 @@ EmberAppBundle.prototype.javascript = function(){
         });
     },this);
 
+    /**
+     * Exclude the bundle files from the main file
+     * #
+     */
+    var excludedFiles  = Object.keys(this.bundleCofig).map(function(key){
+        return this.bundleCofig[key].files;
+    },this);
 
+    //Flattern array
+    excludedFiles = [].concat.apply([],excludedFiles);
+
+
+
+    appJs = new Funnel(applicationJs, {
+        exclude: excludedFiles,
+        getDestinationPath: function(relativePath) {
+            return relativePath;
+        }
+
+    });
+
+
+
+    appJs = mergeTrees([
+        appJs,
+        this._processedEmberCLITree()
+    ], {
+        annotation: 'TreeMerger (appJS  & processedEmberCLITree)',
+        overwrite: true
+    });
 
     appJs = this.concatFiles(appJs, {
         inputFiles: [this.name + '/**/*.js'],
@@ -146,13 +131,24 @@ EmberAppBundle.prototype.javascript = function(){
         ],
         footerFiles: [
             'vendor/ember-cli/app-suffix.js',
+            'vendor/ember-cli/app-config.js',
             'vendor/ember-cli/app-boot.js'
         ],
         outputFile: appOutputPath,
         annotation: 'Concat: App'
     });
 
+    var inputFiles = ['vendor/ember-cli/vendor-prefix.js']
+        .concat(legacyFilesToAppend)
+        .concat('vendor/addons.js')
+        .concat('vendor/ember-cli/vendor-suffix.js');
 
+    var vendor = this.concatFiles(applicationJs, {
+        inputFiles: inputFiles,
+        outputFile: this.options.outputPaths.vendor.js,
+        separator: EOL + ';',
+        annotation: 'Concat: Vendor'
+    });
 
     var emberFiles = [
         vendor,
@@ -162,6 +158,8 @@ EmberAppBundle.prototype.javascript = function(){
     return mergeTrees(emberFiles, {
         annotation: 'TreeMerger (vendor & appJS)'
     });
+
+
 }
 
 
