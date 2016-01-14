@@ -7,6 +7,9 @@ This README outlines the details of collaborating on the Ember-CLI-Lazy-Load add
 * `ember install ember-cli-lazy-load`  for ember-cli@2.2.0-beta.6 and compatible with ember@1.* and ember@2.2.*  
 * `ember install ember-cli-lazy-load@0.0.6`  for ember-cli@1.* and compatible with ember@1.*  
 
+###Warining 
+This addon highly depend on the ember-cli version. 
+To be sure that this addon will work install the same ember-cli version as specified in the [package.json](./package.json) file
 
 
 ## Getting started 
