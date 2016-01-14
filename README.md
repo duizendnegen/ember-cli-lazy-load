@@ -4,8 +4,9 @@ This README outlines the details of collaborating on the Ember-CLI-Lazy-Load add
 
 ## Installation
 
-* `ember install ember-cli-lazy-load`  for ember-cli@2.2.0-beta.6
-* `ember install ember-cli-lazy-load@0.0.6`  for ember-cli@1.*
+* `ember install ember-cli-lazy-load`  for ember-cli@2.2.0-beta.6 and compatible with ember@1.* and ember@2.2.*  
+* `ember install ember-cli-lazy-load@0.0.6`  for ember-cli@1.* and compatible with ember@1.*  
+
 
 
 ## Getting started 
@@ -15,30 +16,31 @@ This README outlines the details of collaborating on the Ember-CLI-Lazy-Load add
 
 ```javascript 
 
-        //index: {
-        //    files: [
-        //        "**/templates/index.js",
-        //        "**/controllers/index.js",
-        //        "**/components/my-item/**.js"
-        //    ],
-        //
-        //    routes: ["index", "..."]
-        //},
-        //about: {
-        //    files: [
-        //        "**/templates/about.js",
-        //        "**/controllers/about.js",
-        //        "**/components/my-cat/**.js"
-        //    ],
-        //    dependencies: ["index"],
-        //    routes: ["about", "more routes for this bundle "]
-        //}
+        index: {
+            files: [
+                "**/templates/index.js",
+                "**/controllers/index.js",
+                "**/components/my-item/**.js"
+            ],
+        
+            routes: ["index", "..."]
+        },
+        about: {
+            files: [
+                "**/templates/about.js",
+                "**/controllers/about.js",
+                "**/components/my-cat/**.js"
+            ],
+            dependencies: ["index"],
+            routes: ["about", "more routes for this bundle "]
+        }
 ```
+
 
 
 2. Modify your config/environment.js and include there the bundle files 
 
-```
+```javascript
     var bundles = require("./bundles")
     module.exports = function(environment) {
       var ENV = {
@@ -47,7 +49,7 @@ This README outlines the details of collaborating on the Ember-CLI-Lazy-Load add
 
 3. Modify your ember-cli-build.js to use the custom bundle build flow. 
 
-```
+```javascript
 var EmberApp = require("ember-cli-lazy-load/ember-app");
 var bundles = require("./config/bundles")();
 
@@ -65,7 +67,7 @@ module.exports = function(defaults) {
 
 To enable the automatic loading of the bundles when the user change the route add the mixin to your route: 
 
-```
+```javascript
 
 import Ember from "ember";
 import LazyRouteMixin from 'ember-cli-lazy-load/mixins/lazy-route';
@@ -77,9 +79,9 @@ export default Ember.Route.extend(LazyRouteMixin,{
 
 ```
 
-if you already override the beforeModel function pleas ensure that you excecute the super call before the rest and wait for the result. `
+if you already override the beforeModel function ensure that you execute the super call before the rest and wait for the result.
 
-```
+```javascript
 
 
 import Ember from "ember";
@@ -97,10 +99,8 @@ export default Ember.Route.extend(LazyRouteMixin,{
 });
 
 
-``
+```
  
-5. Done 
-
 
 ## Services / Mixin
 
