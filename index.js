@@ -8,6 +8,9 @@ var replace  = require("broccoli-replace")
 module.exports = {
   name: 'ember-cli-lazy-load',
 
+  blueprintsPath: function() {
+    return path.join(__dirname, 'blueprints');
+  },
   included: function(app, parentAddon) {
     this._super.included(app,parentAddon);
     var target = (parentAddon || app);
