@@ -1,7 +1,7 @@
 /*jshint node:true*/
 /* global require, module */
 var EmberAddon = require('./ember-addon');
-var bundles = require("./config/bundles")();
+var bundles = require("./tests/dummy/config/bundles")();
 
 module.exports = function(defaults) {
 
