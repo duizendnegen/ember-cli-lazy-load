@@ -10,13 +10,15 @@ module.exports = function(environment) {
 
 
         //index: {
-        //    files: [                       // You can specify pattern you want, this options is directly used in a broccoli-funnel
+        //    //Minisearch file patterns for the content of the bundle
+        //    files: [
         //        "**/templates/index.js",
         //        "**/controllers/index.js",
         //        "**/components/my-item/**.js"
         //    ],
         //
-        //    routes: ["index", "..."]      //If the user will translate to one of this route names the bundle gets loaded, this is optional
+        //     //The name of the routes if you are using the lazy-route mixin, no minisearch expressions are allowed here.
+        //    routes: ["index", "..."]
         //},
         //about: {
         //    files: [
@@ -24,7 +26,8 @@ module.exports = function(environment) {
         //        "**/controllers/about.js",
         //        "**/components/my-cat/**.js"
         //    ],
-        //    dependencies: ["index"],      //If the content of your bundle depend on something from an other bundle you can specify this here
+        //     //The dependencies for this bundle. They will loaded in the same batch as the actual bundle
+        //    dependencies: ["index"],
         //    routes: ["about", "more routes for this bundle "]
         //}
     }
