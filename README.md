@@ -12,7 +12,7 @@ This README outlines the details of collaborating on the Ember-CLI-Lazy-Load add
 ## Getting started 
 
 
-1. Configure your bundles in config/bundes.js 
+#### 1. Configure your bundles in config/bundes.js 
 
 ```javascript 
 
@@ -38,7 +38,7 @@ This README outlines the details of collaborating on the Ember-CLI-Lazy-Load add
 
 
 
-2. Modify your config/environment.js and include there the bundle files 
+#### 2. Modify your config/environment.js and include there the bundle files 
 
 ```javascript
     var bundles = require("./bundles")
@@ -47,7 +47,7 @@ This README outlines the details of collaborating on the Ember-CLI-Lazy-Load add
         bundles: bundles(environment),
 ```
 
-3. Modify your ember-cli-build.js to use the custom bundle build flow. 
+#### 3. Modify your ember-cli-build.js to use the custom bundle build flow. 
 
 ```javascript
 var EmberApp = require("ember-cli-lazy-load/ember-app");
@@ -63,7 +63,7 @@ module.exports = function(defaults) {
 
 ````
 
-4. Add Mixin to your routes 
+#### 4. Add Mixin to your routes 
 
 To enable the automatic loading of the bundles when the user change the route add the mixin to your route: 
 
