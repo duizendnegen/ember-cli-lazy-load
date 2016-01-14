@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-lazy-load",
-  "version": "0.0.7",
+  "version": "0.1.0",
   "description": "The default blueprint for ember-cli addons.",
   "directories": {
     "doc": "doc",
@@ -9,6 +9,7 @@
   "scripts": {
     "build": "ember build",
     "build-pro": "ember build  --environment=production ",
+    "start-pro": "ember server  --environment=production ",
     "start": "ember server",
     "test": "ember try:testall"
   },
@@ -59,6 +60,7 @@
     "path": "^0.12.7"
   },
   "ember-addon": {
+   "after": "broccoli-asset-rev",
     "configPath": "tests/dummy/config"
   }
 }

@@ -43,7 +43,14 @@ module.exports = {
     var assets  = {}
     var workingTree = new Funnel(tree, {
       getDestinationPath: function(relativePath) {
-        var list = relativePath.split(".")
+        console.log(JSON.stringify(relativePath))
+        var list = relativePath.split(".").map((name)=>{
+          if(name.indexOf("bundle")>-1){
+            return "bundle"
+          }else {
+            return name;
+          }
+        });
         var indexOfBundleStr = list.indexOf("bundle");
         if( indexOfBundleStr  > -1  && list[indexOfBundleStr+1] != "map" )
         assets[list[indexOfBundleStr-1]] = relativePath;

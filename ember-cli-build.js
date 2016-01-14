@@ -9,9 +9,7 @@ module.exports = function(defaults) {
   var app = new EmberAddon(defaults, {
     // Add options here
     fingerprint: {
-      assetMap: true,
-      exclude: ['fonts/169929'],
-      prepend: 'https://subdomain.cloudfront.net/'
+      enable:true
     },
     bundles: bundles
   });
