@@ -10,13 +10,13 @@ module.exports = function(environment) {
 
 
         //index: {
-        //    files: [
+        //    files: [                       // You can specify pattern you want, this options is directly used in a broccoli-funnel
         //        "**/templates/index.js",
         //        "**/controllers/index.js",
         //        "**/components/my-item/**.js"
         //    ],
         //
-        //    routes: ["index", "..."]
+        //    routes: ["index", "..."]      //If the user will translate to one of this route names the bundle gets loaded, this is optional
         //},
         //about: {
         //    files: [
@@ -24,7 +24,7 @@ module.exports = function(environment) {
         //        "**/controllers/about.js",
         //        "**/components/my-cat/**.js"
         //    ],
-        //    dependencies: ["index"],
+        //    dependencies: ["index"],      //If the content of your bundle depend on something from an other bundle you can specify this here
         //    routes: ["about", "more routes for this bundle "]
         //}
     }
