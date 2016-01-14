@@ -3,8 +3,9 @@
 
 var Funnel      = require('broccoli-funnel');
 var treeJson    = require("broccoli-tree-to-json");
-var MergeTrees  = require("broccoli-merge-trees")
-var replace  = require("broccoli-replace")
+var MergeTrees  = require("broccoli-merge-trees");
+var replace     = require("broccoli-replace");
+var path        = require("path");
 module.exports = {
   name: 'ember-cli-lazy-load',
 

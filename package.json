@@ -51,7 +51,8 @@
     "broccoli-replace": "^0.11.0",
     "broccoli-tree-to-json": "^0.1.1",
     "ember-cli-babel": "^5.1.5",
-    "ember-get-config": "0.0.2"
+    "ember-get-config": "0.0.2",
+    "path": "^0.12.7"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
