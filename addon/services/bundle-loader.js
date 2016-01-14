@@ -17,7 +17,7 @@ export default Ember.Service.extend({
     },
 
     _modifyConfig(){
-        if(typeof config.bundles === "undefined" && config.enviroment==="development"){
+        if(!!!config.bundles && config.enviroment==="development"){
             console.warn("please specify a bundles option in your enviroment config");
             return;
         }
@@ -61,7 +61,7 @@ export default Ember.Service.extend({
      */
     requireBundle: function (name) {
 
-        if (typeof  this._promises[name] === "undefined") {
+        if (!!!this._promises[name]) {
 
             this._promises[name] = this.getScript(config.bundles[name].url);
 
@@ -69,14 +69,16 @@ export default Ember.Service.extend({
             return this._promises[name];
         }
     },
+    /* jshint ignore:start */
     loadBundle:function(bundleName){
 
-        if( typeof bundleName === "undefined"){
+        if(!!!bundleName){
             return new Promise((resolve)=>resolve());
         }
 
+
         //find dependencies
-        var dependencies = typeof config.bundles[bundleName].dependencies !== "undefined" ? config.bundles[bundleName].dependencies: [];
+        var dependencies = !!config.bundles[bundleName].dependencies ?  config.bundles[bundleName].dependencies: [];
 
         //Load all dependencies bundles and the actual bundle
         dependencies.push(bundleName);
@@ -85,5 +87,6 @@ export default Ember.Service.extend({
 
         return Ember.$.when(requests);
     }
+    /* jshint ignore:end */
 
 });
