@@ -55,7 +55,7 @@ module.exports = {
         {
           match: 'assetMap',
           replacement: function(){
-            return JSON.stringify(assets).replace(/"/g, "'")
+            return    encodeURIComponent(JSON.stringify(assets))
           }
         }
       ]

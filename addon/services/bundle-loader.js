@@ -1,6 +1,5 @@
 import  Ember from "ember";
 import config from 'ember-get-config';
-
 export default Ember.Service.extend({
 
     /**
@@ -23,7 +22,9 @@ export default Ember.Service.extend({
             return;
         }
 
-        let jsonStr = Ember.$(document.getElementsByName("ember-asset-map")).attr("content").replace(/'/g,'"');
+
+        let jsonStr = Ember.$(document.getElementsByName("ember-asset-map")).attr("content");
+        jsonStr = decodeURIComponent(jsonStr);
         let jsonObj = JSON.parse(jsonStr);
         let bundleMapKey   = Object.keys(jsonObj);
 
