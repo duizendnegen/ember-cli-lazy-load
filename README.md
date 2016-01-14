@@ -1,6 +1,6 @@
 # Ember-ClI-Lazy-Load
 
-This README outlines the details of collaborating on the Ember-CLI-Lazy-Load addon.
+This README outlines the details of collaborating on the Ember-CLI-Lazy-Load addon [here](https://github.com/B-Stefan/ember-cli-lazy-load-example) you find an [exmaple app](https://github.com/B-Stefan/ember-cli-lazy-load-example) that use this addon: 
 
 ## Installation
 
@@ -45,8 +45,77 @@ This README outlines the details of collaborating on the Ember-CLI-Lazy-Load add
 
 3. Modify your ember-cli-build.js to use the custom bundle build flow. 
 
+```
+var EmberApp = require("ember-cli-lazy-load/ember-app");
+var bundles = require("./config/bundles")();
+
+module.exports = function(defaults) {
+
+  var app = new EmberApp(defaults, {
+    // Add options here
+    bundles: bundles
+  }
 
 
+````
+
+4. Add Mixin to your routes 
+
+To enable the automatic loading of the bundles when the user change the route add the mixin to your route: 
+
+```
+
+import Ember from "ember";
+import LazyRouteMixin from 'ember-cli-lazy-load/mixins/lazy-route';
+
+export default Ember.Route.extend(LazyRouteMixin,{
+
+   
+});
+
+```
+
+if you already override the beforeModel function pleas ensure that you excecute the super call before the rest and wait for the result. `
+
+```
+
+
+import Ember from "ember";
+import LazyRouteMixin from 'ember-cli-lazy-load/mixins/lazy-route';
+
+export default Ember.Route.extend(LazyRouteMixin,{
+
+  beforeModel: function(transition, queryParams){
+          return this._super(transition,queryParams).then(()=>{
+              console.log("code after the bundle load");
+          });
+      }
+
+   
+});
+
+
+``
+ 
+5. Done 
+
+
+## Services / Mixin
+
+###bundle-loader Service
+
+The bundle loader provide the ability to load bundles. 
+
+* loadBundle(bundleName:string):Promise() - Load the bundle and there dependencies 
+
+
+###lazy-route Mixin 
+The mixin override the beforeModel(transition, queryParams) function. 
+If you use this function already in you route be sure that you call first this method and wait for the promise!  
+
+
+* findBundleByRouteName(routeName:string):string - get the bundle for the route, undefined if no bundle found 
+* beforeModel(transition, queryParams):Promise  - loads the bundle if there is one for this route 
 
 
 ## Running
