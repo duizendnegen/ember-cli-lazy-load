@@ -1,5 +1,5 @@
 /* jshint expr:true */
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 import Ember from "ember";
 import {
   describeModule,
@@ -25,18 +25,25 @@ describeModule(
       expect(service).to.respondTo("loadBundle");
     });
 
-    it('intern functions works', function() {
+    it('lazily loads a bundle', function() {
       let service = this.subject();
 
       service.getScript = function(url){
-          return Ember.RSVP.Promise((resolve /*,reject*/)=>{
+          return new Ember.RSVP.Promise((resolve /*,reject*/)=>{
             setTimeout(()=>resolve(url),1000);
           });
       };
       service.loadBundle("index").then((url)=>{
         expect(url[0]).equals["index"];
       });
+    });
 
+    it('lazily loads dependencies', function() {
+      assert.fail();
+    });
+
+    it('lazily loads nested dependencies', function() {
+      assert.fail();
     });
   }
 );
