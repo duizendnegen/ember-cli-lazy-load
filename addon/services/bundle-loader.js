@@ -17,19 +17,18 @@ export default Ember.Service.extend({
     },
 
     _modifyConfig(){
-        if(!!!config.bundles && config.enviroment==="development"){
+        if(!config.bundles && config.enviroment==="development"){
             console.warn("please specify a bundles option in your enviroment config");
             return;
         }
 
 
-        let jsonStr = Ember.$(document.getElementsByName("ember-asset-map")).attr("content");
+        let jsonStr = Ember.$("meta[name='ember-asset-map']").attr("content");
         jsonStr = decodeURIComponent(jsonStr);
         let jsonObj = JSON.parse(jsonStr);
         let bundleMapKey   = Object.keys(jsonObj);
 
         Object.keys(config.bundles).forEach((key)=>{
-
             if(bundleMapKey.indexOf(key) > -1){
                 config.bundles[key].url = jsonObj[key];
             }else {
@@ -61,7 +60,7 @@ export default Ember.Service.extend({
      */
     requireBundle: function (name) {
 
-        if (!!!this._promises[name]) {
+        if (!this._promises[name]) {
 
             this._promises[name] = this.getScript(config.bundles[name].url);
 
@@ -72,7 +71,7 @@ export default Ember.Service.extend({
     /* jshint ignore:start */
     loadBundle:function(bundleName){
 
-        if(!!!bundleName){
+        if(!bundleName){
             return new Promise((resolve)=>resolve());
         }
 
