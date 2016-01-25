@@ -23,7 +23,7 @@ export default Ember.Service.extend({
         }
 
 
-        let jsonStr = Ember.$(document.getElementsByName("ember-asset-map")).attr("content");
+        let jsonStr = Ember.$("name=['ember-asset-map']").attr("content");
         jsonStr = decodeURIComponent(jsonStr);
         let jsonObj = JSON.parse(jsonStr);
         let bundleMapKey   = Object.keys(jsonObj);
