@@ -4,7 +4,7 @@ Ember Cli Lazy Load supports lazily loading your Ember application, by splitting
 
 Requirements: `ember-cli` >= 2.2.0-beta.6
 
-Whenever `[ember-engines](https://github.com/dgeb/ember-engines)` land their version of lazy loading, this add-on will be deprecated.
+Whenever [ember-engines](https://github.com/dgeb/ember-engines) land their version of lazy loading, this add-on will be deprecated.
 
 ## Installation
 
