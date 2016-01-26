@@ -4,8 +4,6 @@ var EmberAddon = require('./ember-addon');
 var bundles = require("./tests/dummy/config/bundles")();
 
 module.exports = function(defaults) {
-
-  console.log(bundles );
   var app = new EmberAddon(defaults, {
     // Add options here
     fingerprint: {

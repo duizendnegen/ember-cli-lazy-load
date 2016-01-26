@@ -30,12 +30,12 @@ module.exports = {
     }
 
   },
-  contentFor: function(type,config){
+  contentFor: function(type,config) {
     if (type === 'head-footer') {
       return '<meta name="ember-asset-map" content="@@assetMap"/>';
     }
   },
-  postprocessTree:function(type,tree){
+  postprocessTree: function(type,tree) {
     if(type != "all"){
       return tree;
     }
@@ -43,7 +43,6 @@ module.exports = {
     var assets  = {}
     var workingTree = new Funnel(tree, {
       getDestinationPath: function(relativePath) {
-        console.log(JSON.stringify(relativePath))
         var list = relativePath.split(".").map((name)=>{
           if(name.indexOf("bundle")>-1){
             return "bundle"
@@ -75,6 +74,5 @@ module.exports = {
     return new MergeTrees([workingTree,indexTree], {
       overwrite: true
     });
-
   }
 };
