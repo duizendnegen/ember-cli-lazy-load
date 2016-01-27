@@ -1,4 +1,4 @@
-# Ember-clI-lazy-load
+# Ember-cli-lazy-load
 
 Ember Cli Lazy Load supports lazily loading your Ember application, by splitting the app up into bundles. It comes with [a dummy app](https://github.com/duizendnegen/ember-cli-lazy-load/tree/master/tests/dummy) that implements a basic lazy loading scenario.
 
