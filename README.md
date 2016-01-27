@@ -16,27 +16,27 @@ Whenever [ember-engines](https://github.com/dgeb/ember-engines) land their versi
 
 ```javascript
 
-        index: {
-            //Minisearch file patterns for the content of the bundle
-            files: [
-                "**/templates/index.js",
-                "**/controllers/index.js",
-                "**/components/my-cat/**.js"
-            ],
+index: {
+  //Minisearch file patterns for the content of the bundle
+  files: [
+    "**/templates/index.js",
+    "**/controllers/index.js",
+    "**/components/my-cat/**.js"
+  ],
 
-            //The name of the routes if you are using the lazy-route mixin, no minisearch expressions are allowed here.
-            routes: ["index", "..."]
-            //The dependencies for this bundle. They will loaded in the same batch as the actual bundle
-            dependencies: ["about"],
-        },
-        about: {
-            files: [
-                "**/templates/about.js",
-                "**/controllers/about.js",
-                "**/components/my-item/**.js"
-            ],
-            routes: ["about", "more routes for this bundle "]
-        }
+  //The name of the routes if you are using the lazy-route mixin, no minisearch expressions are allowed here.
+  routes: ["index", "..."]
+  //The dependencies for this bundle. They will loaded in the same batch as the actual bundle
+  dependencies: ["about"],
+},
+about: {
+  files: [
+    "**/templates/about.js",
+    "**/controllers/about.js",
+    "**/components/my-item/**.js"
+  ],
+  routes: ["about", "more routes for this bundle "]
+}
 ```
 
 
@@ -44,10 +44,10 @@ Whenever [ember-engines](https://github.com/dgeb/ember-engines) land their versi
 #### 2. Modify config/environment.js to include the bundle files
 
 ```javascript
-    var bundles = require("./bundles")
-    module.exports = function(environment) {
-      var ENV = {
-        bundles: bundles(environment),
+var bundles = require("./bundles");
+module.exports = function(environment) {
+  var ENV = {
+    bundles: bundles(environment),
 ```
 
 #### 3. Modify your ember-cli-build.js to use the custom bundle build flow.
@@ -57,7 +57,6 @@ var EmberApp = require("ember-cli-lazy-load/ember-app");
 var bundles = require("./config/bundles")();
 
 module.exports = function(defaults) {
-
   var app = new EmberApp(defaults, {
     // Add options here
     bundles: bundles
@@ -71,10 +70,7 @@ module.exports = function(defaults) {
 import Ember from "ember";
 import LazyRouteMixin from 'ember-cli-lazy-load/mixins/lazy-route';
 
-export default Ember.Route.extend(LazyRouteMixin, {
-
-
-});
+export default Ember.Route.extend(LazyRouteMixin, {});
 
 ```
 
@@ -85,12 +81,11 @@ import Ember from "ember";
 import LazyRouteMixin from 'ember-cli-lazy-load/mixins/lazy-route';
 
 export default Ember.Route.extend(LazyRouteMixin,{
-
   beforeModel: function(transition, queryParams){
-          return this._super(transition,queryParams).then(()=>{
-              // do the other beforeModel operations
-          });
-      }
+      return this._super(transition,queryParams).then(()=>{
+        // do the other beforeModel operations
+      });
+    }
 });
 ```
 
