@@ -59,33 +59,53 @@ export default Ember.Service.extend({
      * @private
      */
     requireBundle: function (name) {
-
-        if (!this._promises[name]) {
-
-            this._promises[name] = this.getScript(config.bundles[name].url);
-
-        } else {
-            return this._promises[name];
-        }
+      if (!this._promises[name]) {
+        this._promises[name] = this.getScript(config.bundles[name].url);
+      } else {
+        return this._promises[name];
+      }
     },
+
     /* jshint ignore:start */
-    loadBundle:function(bundleName){
+    loadBundle: function(bundleName) {
+      if(!bundleName) {
+        return new Promise((resolve)=>resolve());
+      }
 
-        if(!bundleName){
-            return new Promise((resolve)=>resolve());
-        }
-
-
-        //find dependencies
-        var dependencies = !!config.bundles[bundleName].dependencies ?  config.bundles[bundleName].dependencies: [];
-
-        //Load all dependencies bundles and the actual bundle
+      var dependencies = this.findDependencies(config.bundles[bundleName]);
+      if(dependencies.indexOf(bundleName) === -1) {
         dependencies.push(bundleName);
+      }
 
-        var requests = dependencies.map((depName)=>this.requireBundle(depName));
+      var requests = dependencies.map((dependencyName) => this.requireBundle(dependencyName));
 
-        return Ember.$.when(requests);
-    }
+      return Ember.$.when(requests);
+    },
     /* jshint ignore:end */
 
+    findDependencies: function(bundle) {
+      var allDependencies = [];
+
+      if(!bundle) {
+        return allDependencies;
+      }
+
+      // find dependencies
+      var directDependencies = (!!bundle.dependencies) ? bundle.dependencies : [];
+      directDependencies.forEach((dependency) => {
+        var nestedDependencies = this.findDependencies(config.bundles[dependency]);
+
+        nestedDependencies.forEach((nestedDependency) => {
+          if(allDependencies.indexOf(nestedDependency) === -1) {
+            allDependencies.push(nestedDependency);
+          }
+        });
+
+        if(allDependencies.indexOf(dependency) === -1) {
+          allDependencies.push(dependency);
+        }
+      });
+
+      return allDependencies;
+    }
 });

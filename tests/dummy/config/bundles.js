@@ -14,7 +14,7 @@ module.exports = function(environment) {
                "**/components/my-item/**.js"
            ],
 
-           routes: ["index", "..."]
+           routes: ["index"]
        },
        about: {
            files: [
@@ -23,7 +23,15 @@ module.exports = function(environment) {
                "**/components/my-cat/**.js"
            ],
            dependencies: ["index"],
-           routes: ["about", "more routes for this bundle "]
+           routes: ["about"]
+       },
+       how: {
+         files: [
+             "**/templates/how.js",
+             "**/controllers/how.js"
+         ],
+         dependencies: ["about"],
+         routes: ["how"]
        }
    }
 
