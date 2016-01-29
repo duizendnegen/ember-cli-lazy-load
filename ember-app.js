@@ -73,7 +73,15 @@ EmberAppBundle.prototype.javascript = function(){
         );
     }
 
-    var bundleFiles = Object.keys(this.bundleCofig).map(function(key){
+    var bundleFiles = Object.keys(this.bundleCofig)
+        .filter(function(key){
+            var bundle = this.bundleCofig[key];
+            if(bundle && bundle.files && bundle.files.length > 0){
+                return true
+            }
+        },this)
+        .map(function(key){
+            console.log(key)
         var bundle = this.bundleCofig[key];
         bundle["name"] = key;
 

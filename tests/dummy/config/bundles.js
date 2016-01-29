@@ -32,7 +32,13 @@ module.exports = function(environment) {
          ],
          dependencies: ["about"],
          routes: ["how"]
-       }
+       },
+      empty: {
+        files: [
+        ],
+        dependencies: ["about"],
+        routes: ["how"]
+     }
    }
 
 };
