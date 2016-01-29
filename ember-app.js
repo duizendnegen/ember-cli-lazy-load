@@ -81,7 +81,6 @@ EmberAppBundle.prototype.javascript = function(){
             }
         },this)
         .map(function(key){
-            console.log(key)
         var bundle = this.bundleCofig[key];
         bundle["name"] = key;
 
