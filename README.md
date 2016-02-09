@@ -12,7 +12,7 @@ Whenever [ember-engines](https://github.com/dgeb/ember-engines) land their versi
 
 ## Getting started
 
-#### 1. Configure your bundles in config/bundes.js
+#### 1. Configure your bundles in `config/bundles.js`
 
 ```javascript
 
@@ -41,7 +41,7 @@ about: {
 
 
 
-#### 2. Modify config/environment.js to include the bundle files
+#### 2. Modify `config/environment.js` to include the bundle files
 
 ```javascript
 var bundles = require("./bundles");
@@ -50,7 +50,7 @@ module.exports = function(environment) {
     bundles: bundles(environment),
 ```
 
-#### 3. Modify your ember-cli-build.js to use the custom bundle build flow.
+#### 3. Modify your `ember-cli-build.js` to use the custom bundle build flow.
 
 ```javascript
 var EmberApp = require("ember-cli-lazy-load/ember-app");
