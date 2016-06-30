@@ -54,13 +54,10 @@ EmberAppBundle.prototype.constructor = EmberAppBundle;
 
 
 EmberAppBundle.prototype.javascript = function(){
-
-
-
+    var deprecate           = this.project.ui.writeDeprecateLine.bind(this.project.ui);
     var applicationJs       = this.appAndDependencies();
-    var legacyFilesToAppend = this.legacyFilesToAppend;
     var appOutputPath       = this.options.outputPaths.app.js;
-    var appJs = applicationJs;
+    var appJs               = applicationJs;
 
     // Note: If ember-cli-babel is installed we have already performed the transpilation at this point
     if (!this._addonInstalled('ember-cli-babel')) {
@@ -111,17 +108,12 @@ EmberAppBundle.prototype.javascript = function(){
     //Flattern array
     excludedFiles = [].concat.apply([],excludedFiles);
 
-
-
     appJs = new Funnel(applicationJs, {
         exclude: excludedFiles,
         getDestinationPath: function(relativePath) {
             return relativePath;
         }
-
     });
-
-
 
     appJs = mergeTrees([
         appJs,
@@ -145,31 +137,34 @@ EmberAppBundle.prototype.javascript = function(){
         annotation: 'Concat: App'
     });
 
-    var inputFiles = ['vendor/ember-cli/vendor-prefix.js']
-        .concat(legacyFilesToAppend)
-        .concat('vendor/addons.js')
-        .concat('vendor/ember-cli/vendor-suffix.js');
+    if (this.legacyFilesToAppend.length > 0) {
+      deprecate('Usage of EmberApp.legacyFilesToAppend is deprecated. Please use EmberApp.import instead for the following files: \'' + this.legacyFilesToAppend.join('\', \'') + '\'');
+      this.legacyFilesToAppend.forEach(function(legacyFile) {
+        this.import(legacyFile);
+      }.bind(this));
+    }
 
-    var vendor = this.concatFiles(applicationJs, {
-        inputFiles: inputFiles,
-        outputFile: this.options.outputPaths.vendor.js,
-        separator: EOL + ';',
-        annotation: 'Concat: Vendor'
-    });
+    this.import('vendor/ember-cli/vendor-prefix.js', {prepend: true});
+    this.import('vendor/addons.js');
+    this.import('vendor/ember-cli/vendor-suffix.js');
 
-    var emberFiles = [
-        vendor,
-        appJs
-    ].concat(bundleFiles);
+    var vendorFiles = [];
+    for (var outputFile in this._scriptOutputFiles) {
+      var inputFiles = this._scriptOutputFiles[outputFile];
 
-    return mergeTrees(emberFiles, {
+      vendorFiles.push(
+        this.concatFiles(applicationJs, {
+          inputFiles: inputFiles,
+          outputFile: outputFile,
+          separator: EOL + ';',
+          annotation: 'Concat: Vendor ' + outputFile
+        })
+      );
+    }
+
+    return mergeTrees(vendorFiles.concat(appJs).concat(bundleFiles), {
         annotation: 'TreeMerger (vendor & appJS)'
     });
-
-
 }
-
-
-
 
 module.exports =  EmberAppBundle;
