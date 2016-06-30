@@ -2,7 +2,8 @@
 
 Ember Cli Lazy Load supports lazily loading your Ember application, by splitting the app up into bundles. It comes with [a dummy app](https://github.com/duizendnegen/ember-cli-lazy-load/tree/master/tests/dummy) that implements a basic lazy loading scenario.
 
-Requirements: `ember-cli` == 2.2.0
+Requirements: `ember-cli` >= 2.3.0
+For `ember-cli` == 2.2.0, use release `0.2.2`.
 
 Whenever [ember-engines](https://github.com/dgeb/ember-engines) land their version of lazy loading, this add-on will be deprecated.
 
