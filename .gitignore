@@ -27,13 +27,13 @@ build/Release
 
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
-node_modules
+/node_modules
 
 
 
 .idea
-dist
-bower_components
+/dist
+/bower_components
 /dist
 /tmp
 .DS_Store
