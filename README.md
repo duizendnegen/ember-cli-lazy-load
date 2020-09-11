@@ -28,6 +28,7 @@ index: {
   //The name of the routes if you are using the lazy-route mixin, no minisearch expressions are allowed here.
   routes: ["index", "..."]
   //The dependencies for this bundle. They will loaded in the same batch as the actual bundle
+  // The dependencies had to be loaded prior to the dependent bundles.
   dependencies: ["about"],
 },
 about: {
